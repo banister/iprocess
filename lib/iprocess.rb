@@ -68,15 +68,15 @@ class IProcess
   end
 
   #
-  # @param [#recv] listener
-  #   The listener.
+  # @param [#recv] obj
+  #   An object that will receive a msg.
   #
   # @return [void]
   #
-  def defer(listener)
+  def report_to(obj)
     Thread.new do
       Process.wait @pid
-      listener.recv @channel.recv
+      obj.recv @channel.recv
     end
   end
 
