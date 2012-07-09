@@ -51,7 +51,7 @@ When the subprocess completes, ':hi' is sent to `obj#recv` from another thread.
 
     obj = Object.new
     def obj.recv(msg)
-      msg.to_s.captialize!
+      msg.to_s.capitalize!
     end
 
     jobs = IProcess.spawn! { :hi }
