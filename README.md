@@ -10,9 +10,9 @@ __OVERVIEW__
 
 __DESCRIPTION__
 
-  IProcess, short for _Inter Process Communication(IPC) Process_, is a collection 
-  of classes you can use to transport Ruby objects between processes running on 
-  UNIX-like operating systems.  
+  IProcess, short for _Inter Process Communication(IPC) Process_, is a simple
+  and easy-to-use way of transporting Ruby objects between processes running on 
+  UNIX-like operating systems. 
 
 
 __EXAMPLES__
