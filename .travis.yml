@@ -5,6 +5,5 @@ rvm:
   - ruby-head
 
 notifications:
-  irc: "irc.freenode.org#flowof.info"
-  recipients:
-    - rob@flowof.info
+  irc: "irc.freenode.org#ruby-bridge"
+  email: false
