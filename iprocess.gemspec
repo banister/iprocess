@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version     = '~> 1.9.1'
 
   s.add_development_dependency 'yard'     , '~> 0.7'
-  s.add_development_dependency 'redcarpet', '~> 1.17' 
+  s.add_development_dependency 'kramdown' 
   s.add_development_dependency 'minitest' , '~> 2.6'
   s.add_development_dependency 'rake'     , '~> 0.9.2'
 end
