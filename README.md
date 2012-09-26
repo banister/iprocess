@@ -10,13 +10,12 @@ __OVERVIEW__
 
 __DESCRIPTION__
 
-  The purpose of IProcess is to allow you(the developer) to run units of work
+  The purpose of IProcess is to allow you, the developer, run units of work
   in parallel to each other. If you were to get down to implementation details
-  you'd see I'm using Kernel#fork to spawn subproccesses as units of work.
-
-  As a bonus the parent process can collect the return value of each unit of 
-  work as long as it is serializable (i.e: Marshal can dump & load it).
-
+  you'd see I'm using Kernel#fork to spawn subproccesses that dispatch a unit of 
+  work. As a bonus the parent process can collect the return value of each unit 
+  of work as long as it is serializable (i.e: Marshal can dump & load it).  
+ 
 __EXAMPLES__
 
 The first two examples(one & two) are using the synchronous APIs, a little below
