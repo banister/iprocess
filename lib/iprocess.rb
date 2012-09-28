@@ -6,7 +6,7 @@ class IProcess
     #
     # @overload spawn(number_of = 1, worker)
     #
-    #   Spawn one or more subprocesses.
+    #   Spawn one or more unit(s) of work.
     #
     #   @param [Integer] number_of
     #     The number of subprocesses to spawn.
@@ -24,7 +24,7 @@ class IProcess
     #
     # @overload
     #   
-    #   Spawn one or more subprocesses asynchronously.
+    #   Spawn one or more unit(s) of work asynchronously.
     #
     #   @param
     #     (see IProcess.spawn)
@@ -38,7 +38,6 @@ class IProcess
   
     def fork(number_of = 1, obj = nil, &worker)
       worker = obj || worker
-
       Array.new(number_of) do
         IProcess.new(worker).tap { |job| job.execute }
       end
@@ -60,7 +59,6 @@ class IProcess
     @worker  = worker
     @channel = nil
     @pid     = nil
-
     unless @worker.respond_to?(:call)
       raise ArgumentError,
             "Expected worker to implement #{@worker.class}#call"
