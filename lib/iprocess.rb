@@ -50,7 +50,7 @@ class IProcess
   #   The unit of work to execute in a subprocess.
   #
   # @raise [ArgumentError]
-  #   If a worker is not given.
+  #   If a worker does not respond to _#call_.
   #
   # @return [IProcess]
   #   Returns self.

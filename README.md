@@ -10,12 +10,8 @@ __OVERVIEW__
 
 __DESCRIPTION__
 
-  The purpose of IProcess is to allow you, the developer, run units of work
-  in parallel to each other. If you were to get down to implementation details
-  you'd see I'm using Kernel#fork to spawn subproccesses that dispatch a unit of 
-  work. As a bonus the parent process can collect the return value of each unit 
-  of work as long as it is serializable (i.e: Marshal can dump & load it).  
- 
+ An alternative approach to InterProcess Communication(IPC).
+
 __EXAMPLES__
 
 The first two examples(one & two) are using the synchronous APIs, a little below
@@ -23,7 +19,7 @@ those(3) demos the asynchronous API.
 
 __1.__
 
-A single subprocess is spawned:
+A single unit of work is spawned:
   
     message = IProcess.spawn { [:yes, :no] }
     p message # => [[:yes, :no]]
@@ -47,14 +43,11 @@ subprocesses you can spawn is variable (5, in this example):
 
 __3.__
 
-A single subprocess is spawned asynchronously.  
-When the subprocess completes, ':hi' is sent to `obj#recv` from another thread.
+A unit of work is spawned asynchronously.  
+When the unit of work completes, ':hi' is sent to `obj#recv` from another thread.
 
     obj = Object.new
-    def obj.recv(msg)
-      msg.to_s.capitalize!
-    end
-
+    def obj.recv(msg) msg.to_s.capitalize! end
     jobs = IProcess.spawn! { :hi }
     jobs.map { |job| job.report_to(obj) }
 
@@ -72,6 +65,10 @@ _unsupported_
   * MacRuby
   * JRuby
 
+__LICENSE__
+
+MIT. See LICENSE.txt.
+
 __INSTALL__
 
-gem install iprocess
+    $ gem install iprocess
