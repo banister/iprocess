@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.authors      = ["Rob Gleeson"]
   s.email        = 'rob@flowof.info'
   s.homepage     = 'https://github.com/robgleeson/iprocess'
-  s.summary      = 'Transport Ruby objects between processes on UNIX-like operating systems'
+  s.summary      = 'IProcess makes InterProcess Communication(IPC) easy.'
   s.description  = s.summary
 
   s.files        = `git ls-files`.each_line.map(&:chomp)
