@@ -71,6 +71,23 @@ the `IProcess.serializer=` method:
 
     IProcess.serializer = JSON
 
+I know JSON & Marshal(the default) are supported out of 
+the box because it implements both of those methods. 
+MessagePack does not however but you could easily write 
+a wrapper:
+
+    require 'msgpack'
+    obj = Class.new do
+      def dump(obj)
+        MessagePack.pack(obj)
+      end
+
+      def load(obj)
+        MessagePack.unpack(obj)
+      end
+    end
+    IProcess.serializer = obj
+
 __PLATFORM SUPPORT__
 
 _supported_
