@@ -10,11 +10,10 @@ __OVERVIEW__
 
 __DESCRIPTION__
 
-  IProcess makes InterProcess Communication(IPC) easy by providing a number of 
-  abstractions on top of spawning subprocesses and interprocess communication.
-  It has a simple and easy to use API that supports synchronous and asynchronous
-  method calls plus a few other useful features that will become
-  obvious in the examples below. :-)
+  Provides a number of  abstractions on top of spawning subprocesses and interprocess 
+  communication. It has a simple and easy to use API that supports synchronous and 
+  asynchronous method calls plus one or two other useful features shown in the 
+  examples below.
 
 __EXAMPLES__
 
