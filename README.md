@@ -63,6 +63,13 @@ A subprocess is spawned asynchronously.
     jobs = IProcess.spawn! { Process.pid }
     jobs.map { |job| job.report_to(inbox) }
 
+__SERIALIZERS__
+
+A serializer is any object that implements load & dump. 
+You can choose what serializer you'd like to use through 
+the `IProcess.serializer=` method:
+
+    IProcess.serializer = JSON
 
 __PLATFORM SUPPORT__
 

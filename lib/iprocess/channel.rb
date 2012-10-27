@@ -1,12 +1,16 @@
 class IProcess::Channel
 
   #
+  # @param [#dump,#load}] serializer
+  #   Any object that implements dump, & load.
+  #   Defaults to {IProcess.serializer}.
+  #
   # @yieldparam [IProcess::Channel] _self
   #   Yields self.
   #
-  def initialize
+  def initialize(serializer = IProcess.serializer) 
     @reader, @writer = IO.pipe
-
+    @serializer = serializer 
     if block_given?
       yield self
     end
@@ -41,7 +45,7 @@ class IProcess::Channel
   def write object
     if open?
       @reader.close
-      @writer.write Marshal.dump(object)
+      @writer.write @serializer.dump(object)
       @writer.close
     end
   end
@@ -55,7 +59,7 @@ class IProcess::Channel
   def recv
     if open?
       @writer.close
-      obj = Marshal.load(@reader.read)
+      obj = @serializer.load @reader.read
       @reader.close
       obj
     end

@@ -4,6 +4,23 @@ class IProcess
   
   class << self
     #
+    # @return [#load,#dump]
+    #   Returns the serializer used by IProcess.
+    #
+    def serializer 
+      @serializer || Marshal
+    end
+
+    #
+    # @param [#load,#dump] obj
+    #   Any object that implements #load, & #dump.
+    #   Examples could be JSON & Marshal.
+    #
+    def serializer=(obj)
+      @serializer = obj
+    end
+
+    #
     # @overload spawn(number_of = 1, worker)
     #
     #   Spawn one or more unit(s) of work.
@@ -47,10 +64,10 @@ class IProcess
 
   #
   # @param [#call] worker
-  #   The unit of work to execute in a subprocess.
+  #   A block or any object that responds to #call.
   #
   # @raise [ArgumentError]
-  #   If a worker does not respond to _#call_.
+  #   If 'worker' does not respond to #call.
   #
   # @return [IProcess]
   #   Returns self.
@@ -58,7 +75,7 @@ class IProcess
   def initialize(worker)
     @worker  = worker
     @channel = nil
-    @pid     = nil
+    @pid = nil
     unless @worker.respond_to?(:call)
       raise ArgumentError,
             "Expected worker to implement #{@worker.class}#call"
@@ -67,7 +84,7 @@ class IProcess
 
   #
   # @param [#recv] obj
-  #   An object that will receive a msg.
+  #   An object that will receive messages.
   #
   # @return [void]
   #
