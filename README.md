@@ -22,7 +22,8 @@ those(3) demos the asynchronous API.
 
 __1.__
 
-A subprocess is spawned:
+A subprocess is spawned. The return value of the block, even though executed in a subprocess, 
+is returned to the parent process as long as it may be serialized by Marshal:
   
     messages = IProcess.spawn { {msg: "hello"} }
     p messages # => [{msg: "hello"}]
