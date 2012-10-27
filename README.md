@@ -72,7 +72,7 @@ the `IProcess.serializer=` method:
     IProcess.serializer = JSON
 
 I know JSON & Marshal(the default) are supported out of 
-the box because it implements both of those methods. 
+the box because they implement both of those methods. 
 MessagePack does not however but you could easily write 
 a wrapper:
 
