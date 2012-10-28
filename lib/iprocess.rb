@@ -23,7 +23,7 @@ class IProcess
     #
     # @overload spawn(number_of = 1, worker)
     #
-    #   Spawn one or more unit(s) of work.
+    #   Spawn one or more subprocesses.
     #
     #   @param [Integer] number_of
     #     The number of subprocesses to spawn.
@@ -32,8 +32,8 @@ class IProcess
     #     The unit of work to execute in a subprocess.
     #
     #   @return [Array<Object>]
-    #     The return value of the unit if worker.
-    #
+    #     The return value(s) of the unit(s) of work.
+    #     
     def spawn(*args, &worker)
       fork(*args, &worker).map(&:result)
     end
@@ -41,13 +41,13 @@ class IProcess
     #
     # @overload
     #   
-    #   Spawn one or more unit(s) of work asynchronously.
+    #   Spawn one or more subprocesses asynchronously.
     #
     #   @param
     #     (see IProcess.spawn)
     #
     #   @return [Array<IProcess>]
-    #     An array of IProcess objects. See {#defer}.
+    #     An array of IProcess objects. See {#report_to}.
     #
     def spawn!(*args, &worker)
       fork *args, &worker
@@ -64,7 +64,7 @@ class IProcess
 
   #
   # @param [#call] worker
-  #   A block or any object that responds to #call.
+  #   A block or any object that implements #call.
   #
   # @raise [ArgumentError]
   #   If 'worker' does not respond to #call.
@@ -96,7 +96,7 @@ class IProcess
   end
 
   #
-  # Executes a unit of work in a subprocess.
+  # Executes a subprocess.
   #
   # @return [Fixnum]
   #   The process ID of the spawned subprocess.
