@@ -89,9 +89,15 @@ class IProcess
   # @return [void]
   #
   def report_to(obj)
-    Thread.new do
+    thr = Thread.new do
       Process.wait @pid
       obj.recv @channel.recv
+    end
+    pid = Process.pid
+    at_exit do
+      if pid == Process.pid && thr.alive?
+        thr.join
+      end
     end
   end
 
