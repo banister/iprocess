@@ -78,11 +78,11 @@ a wrapper:
 
     require 'msgpack'
     obj = Class.new do
-      def dump(obj)
+      def self.dump(obj)
         MessagePack.pack(obj)
       end
 
-      def load(obj)
+      def self.load(obj)
         MessagePack.unpack(obj)
       end
     end
