@@ -24,7 +24,7 @@ __1.__
 
 Three subprocesses are spawned. The return value of the block, even though executed 
 in a subprocess, is returned to the parent process as long as it may be serialized 
-by Marshal:
+by Marshal(or the serializer of your choice, this is configurable):
   
     messages = IProcess.spawn(3) { {msg: "hello"} }
     p messages # => [{msg: "hello"}, {msg: "hello"}, {msg: "hello"}]
