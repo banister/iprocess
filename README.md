@@ -26,8 +26,10 @@ Three subprocesses are spawned. The return value of the block, even though execu
 in a subprocess, is returned to the parent process as long as it may be serialized 
 by Marshal(or the serializer of your choice, this is configurable):
   
-    messages = IProcess.spawn(3) { {msg: "hello"} }
-    p messages # => [{msg: "hello"}, {msg: "hello"}, {msg: "hello"}]
+```ruby
+messages = IProcess.spawn(3) { {msg: "hello"} }
+p messages # => [{msg: "hello"}, {msg: "hello"}, {msg: "hello"}]
+```
 
 __2.__
 
@@ -35,33 +37,38 @@ You can spawn a subprocess with a block or with any object that responds to
 `#call`. If you had a worker that was too complicated as a block you could 
 try this:
 
-    class Worker
-      def initialize
-        @num = 1
-      end
 
-      def call
-        @num + 1
-      end
-    end
-    IProcess.spawn(5, Worker.new) # => [2, 2, 2, 2, 2]
+```ruby
+class Worker
+  def initialize
+    @num = 1
+  end
+
+  def call
+    @num + 1
+  end
+end
+IProcess.spawn(5, Worker.new) # => [2, 2, 2, 2, 2]
+```
 
 __3.__
 
 A subprocess is spawned asynchronously. 
 
-    class Inbox
-      def initialize
-        @messages = []
-      end
+```ruby    
+class Inbox
+  def initialize
+    @messages = []
+  end
 
-      def recv(msg)
-        @messages << msg
-      end
-    end
-    inbox = Inbox.new
-    jobs = IProcess.spawn! { Process.pid }
-    jobs.map { |job| job.report_to(inbox) }
+  def recv(msg)
+    @messages << msg
+  end
+end
+inbox = Inbox.new
+jobs = IProcess.spawn! { Process.pid }
+jobs.map { |job| job.report_to(inbox) }
+```
 
 __SERIALIZERS__
 
@@ -69,24 +76,28 @@ A serializer is any object that implements load & dump.
 You can choose what serializer you'd like to use through 
 the `IProcess.serializer=` method:
 
-    IProcess.serializer = JSON
+```ruby
+IProcess.serializer = JSON
+```
 
 I know JSON & Marshal(the default) are supported out of 
 the box because they implement both of those methods. 
 MessagePack does not however but you could easily write 
 a wrapper:
 
-    require 'msgpack'
-    obj = Class.new do
-      def self.dump(obj)
-        MessagePack.pack(obj)
-      end
+```ruby
+require 'msgpack'
+obj = Class.new do
+  def self.dump(obj)
+    MessagePack.pack(obj)
+  end
 
-      def self.load(obj)
-        MessagePack.unpack(obj)
-      end
-    end
-    IProcess.serializer = obj
+  def self.load(obj)
+    MessagePack.unpack(obj)
+  end
+end
+IProcess.serializer = obj
+```
 
 __PLATFORM SUPPORT__
 
@@ -107,4 +118,6 @@ MIT. See LICENSE.txt.
 
 __INSTALL__
 
-    $ gem install iprocess
+```
+$ gem install iprocess
+```
